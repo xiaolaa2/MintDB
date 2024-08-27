@@ -20,12 +20,14 @@ import xiaolaa.main.mintdb.backend.utils.Parser;
  */
 public class BPlusTree {
     DataManager dm;
-    long bootUid;
+    long bootUid; // 根节点的uid
     DataItem bootDataItem;
     Lock bootLock;
 
     public static long create(DataManager dm) throws Exception {
+        // 创建一个空节点
         byte[] rawRoot = Node.newNilRootRaw();
+        // 节点持久化到磁盘里
         long rootUid = dm.insert(TransactionManagerImpl.SUPER_XID, rawRoot);
         return dm.insert(TransactionManagerImpl.SUPER_XID, Parser.long2Byte(rootUid));
     }

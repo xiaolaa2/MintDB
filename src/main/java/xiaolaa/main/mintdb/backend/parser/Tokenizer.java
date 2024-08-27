@@ -76,11 +76,13 @@ public class Tokenizer {
             if(b == null) {
                 return "";
             }
+            // 跳过语句中的所有空白字符
             if(!isBlank(b)) {
                 break;
             }
             popByte();
         }
+        // 取出一个字符
         byte b = peekByte();
         if(isSymbol(b)) {
             popByte();
@@ -95,6 +97,11 @@ public class Tokenizer {
         }
     }
 
+    /**
+     * 提取出完整的字符串，比如 select, begin, create
+     * @return
+     * @throws Exception
+     */
     private String nextTokenState() throws Exception {
         StringBuilder sb = new StringBuilder();
         while(true) {
@@ -110,15 +117,26 @@ public class Tokenizer {
         }
     }
 
+    /**
+     * 判断是否为数字
+     * @param b
+     * @return
+     */
     static boolean isDigit(byte b) {
         return (b >= '0' && b <= '9');
     }
 
+    /**
+     * 判断是否为字母
+     * @param b
+     * @return
+     */
     static boolean isAlphaBeta(byte b) {
         return ((b >= 'a' && b <= 'z') || (b >= 'A' && b <= 'Z'));
     }
 
     private String nextQuoteState() throws Exception {
+        // 拿出一个引号
         byte quote = peekByte();
         popByte();
         StringBuilder sb = new StringBuilder();
@@ -128,6 +146,7 @@ public class Tokenizer {
                 err = Error.InvalidCommandException;
                 throw err;
             }
+            // 遇到引号则结束
             if(b == quote) {
                 popByte();
                 break;
@@ -138,6 +157,11 @@ public class Tokenizer {
         return sb.toString();
     }
 
+    /**
+     * 判断是否为符号
+     * @param b
+     * @return
+     */
     static boolean isSymbol(byte b) {
         return (b == '>' || b == '<' || b == '=' || b == '*' ||
 		b == ',' || b == '(' || b == ')');

@@ -54,6 +54,7 @@ public class Field {
 
     private Field parseSelf(byte[] raw) {
         int position = 0;
+        // 获取字段名
         ParseStringRes res = Parser.parseString(raw);
         fieldName = res.str;
         position += res.next;

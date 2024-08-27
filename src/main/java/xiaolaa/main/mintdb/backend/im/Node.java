@@ -237,6 +237,13 @@ public class Node {
         long siblingUid, newSon, newKey;
     }
 
+    /**
+     * 插入数据，如果插入成功则返回true，否则返回false。
+     * @param uid
+     * @param key
+     * @return
+     * @throws Exception
+     */
     public InsertAndSplitRes insertAndSplit(long uid, long key) throws Exception {
         boolean success = false;
         Exception err = null;
@@ -246,11 +253,13 @@ public class Node {
         try {
             success = insert(uid, key);
             if(!success) {
+                // 插入失败，去邻居节点继续找
                 res.siblingUid = getRawSibling(raw);
                 return res;
             }
             // 插入之后判断是否需要拆分，kth大于BALANCE_NUMBER*2，则需要拆分
             if(needSplit()) {
+                // node的key数量太多，页分裂
                 try {
                     SplitRes r = split();
                     res.newSon = r.newSon;

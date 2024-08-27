@@ -45,13 +45,24 @@ public class Parser {
         return Bytes.concat(l, str.getBytes());
     }
 
+     /**
+     * 将字符串转换为唯一的长整型标识符（UID）
+     * 该方法通过对字符串中的每个字符进行迭代计算，生成一个长整型数值，用作UID
+     *
+     * @param key 要转换为UID的字符串
+     * @return 生成的UID
+     */
     public static long str2Uid(String key) {
+        // 初始化种子值，用于在迭代计算中乘以当前结果
         long seed = 13331;
         long res = 0;
         for(byte b : key.getBytes()) {
+            // 计算新的结果值：前一个结果 * 种子值 + 当前字符的字节值
             res = res * seed + (long)b;
         }
+        // 返回最终计算出的UID
         return res;
     }
+
 
 }

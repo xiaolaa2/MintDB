@@ -67,6 +67,7 @@ public class Parser {
         } catch(Exception e) {
             statErr = e;
         }
+        // 语句结束之后不是空，则报错
         try {
             String next = tokenizer.peek();
             if(!"".equals(next)) {
@@ -219,10 +220,17 @@ public class Parser {
             return read;
         }
 
+        // where
         read.where = parseWhere(tokenizer);
         return read;
     }
 
+    /**
+     * where 条件
+     * @param tokenizer
+     * @return
+     * @throws Exception
+     */
     private static Where parseWhere(Tokenizer tokenizer) throws Exception {
         Where where = new Where();
 
@@ -236,6 +244,7 @@ public class Parser {
 
         String logicOp = tokenizer.peek();
         if("".equals(logicOp)) {
+            // 只有一个条件，没有and，or符号
             where.logicOp = logicOp;
             return where;
         }
@@ -448,6 +457,11 @@ public class Parser {
         }
     }
 
+    /**
+     * 判断是否为合法的字段名
+     * @param name
+     * @return
+     */
     private static boolean isName(String name) {
         return !(name.length() == 1 && !Tokenizer.isAlphaBeta(name.getBytes()[0]));
     }

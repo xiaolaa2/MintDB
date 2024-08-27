@@ -77,6 +77,9 @@ public class Table {
         this.name = tableName;
         this.nextUid = nextUid;
     }
+    /**
+     * 根据表的二进制数据解析表的内容
+     */
 
     private Table parseSelf(byte[] raw) {
         int position = 0;

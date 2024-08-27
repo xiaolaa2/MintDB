@@ -1,22 +1,17 @@
 package xiaolaa.main.mintdb.backend.tbm;
 
+import xiaolaa.main.mintdb.backend.dm.DataManager;
+import xiaolaa.main.mintdb.backend.parser.statement.*;
+import xiaolaa.main.mintdb.backend.utils.Parser;
+import xiaolaa.main.mintdb.backend.vm.VersionManager;
+import xiaolaa.main.mintdb.common.Error;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import xiaolaa.main.mintdb.backend.dm.DataManager;
-import xiaolaa.main.mintdb.backend.parser.statement.Begin;
-import xiaolaa.main.mintdb.backend.parser.statement.Create;
-import xiaolaa.main.mintdb.backend.parser.statement.Delete;
-import xiaolaa.main.mintdb.backend.parser.statement.Insert;
-import xiaolaa.main.mintdb.backend.parser.statement.Select;
-import xiaolaa.main.mintdb.backend.parser.statement.Update;
-import xiaolaa.main.mintdb.backend.utils.Parser;
-import xiaolaa.main.mintdb.backend.vm.VersionManager;
-import xiaolaa.main.mintdb.common.Error;
 
 /**
  * 一个数据库中存在多张表，TBM 使用链表（头插法）的形式将其组织起来，每一张表都保存一个指向下一张表的 UID
